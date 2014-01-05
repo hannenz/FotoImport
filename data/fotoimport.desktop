@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=FotoImport
+GenericName=Foto import tool
+Comment=Foto import tool for elementary OS
+Categories=GTK;Utility;
+Exec=fotoimport
+Icon=fotoimport
+Terminal=false
+Type=Application
+X-GNOME-Gettext-Domain=fotoimport

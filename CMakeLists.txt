@@ -22,7 +22,7 @@ set (GETTEXT_PACKAGE "fotoimport")
 find_package(PkgConfig)
 
 # now let's actually check for the required dependencies
-pkg_check_modules(DEPS REQUIRED gtk+-3.0 granite gee-1.0)
+pkg_check_modules(DEPS REQUIRED gtk+-3.0 granite gee-1.0 gexiv2)
 add_definitions(${DEPS_CFLAGS})
 add_definitions(-DGETTEXT_PACKAGE=\"${GETTEXT_PACKAGE}\")
 link_libraries(${DEPS_LIBRARIES})
@@ -46,6 +46,7 @@ vala_precompile(VALA_C ${EXEC_NAME}
 PACKAGES
 	gtk+-3.0
 	granite
+	gexiv2
 	gee-1.0
 	posix
 OPTIONS
@@ -62,11 +63,11 @@ install (TARGETS ${EXEC_NAME} RUNTIME DESTINATION bin)
 install (FILES ${CMAKE_CURRENT_SOURCE_DIR}/data/fotoimport.desktop DESTINATION ${DATADIR}/applications/)
 
 # install translations
-install (FILES ${CMAKE_CURRENT_SOURCE_DIR}/locale/de/LC_MESSAGES/fotoimport.mo DESTINATION ${CMAKE_INSTALL_PREFIX}/share/locale/de/LC_MESSAGES)
+#install (FILES ${CMAKE_CURRENT_SOURCE_DIR}/locale/de/LC_MESSAGES/fotoimport.mo DESTINATION ${CMAKE_INSTALL_PREFIX}/share/locale/de/LC_MESSAGES)
 
 #install icons
-install(FILES icons/fotoimport.png DESTINATION ${CMAKE_INSTALL_PREFIX}/share/icons/hicolor/128x218/apps)
-install(FILES icons/fotoimport.svg DESTINATION ${CMAKE_INSTALL_PREFIX}/share/icons/hicolor/scalable/apps)
+#install(FILES icons/fotoimport.png DESTINATION ${CMAKE_INSTALL_PREFIX}/share/icons/hicolor/128x218/apps)
+#install(FILES icons/fotoimport.svg DESTINATION ${CMAKE_INSTALL_PREFIX}/share/icons/hicolor/scalable/apps)
 
 install (
 	CODE
