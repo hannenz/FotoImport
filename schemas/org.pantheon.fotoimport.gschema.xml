@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+	<schema id="org.pantheon.fotoimport" path="/org/pantheon/fotoimport/">
+
+		<key type="s" name="detsination-path">
+
+			<default>""</default>
+			<summary>Destinantion path</summary>
+			<description>Path to import fotos to (Your foto library)</description>
+		</key>
+
+		<key type="i" name="saved-state-width">
+			<default>600</default>
+			<summary>Saved state width</summary>
+			<description>The size of the window is stored here when the application is closed to restore it on restart</description>
+		</key>
+		<key type="i" name="saved-state-height">
+			<default>800</default>
+			<summary>Saved state height</summary>
+			<description>The size of the window is stored here when the application is closed to restore it on restart</description>
+		</key>
+	</schema>
+</schemalist>
+
