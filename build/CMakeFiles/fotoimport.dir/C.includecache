@@ -23,7 +23,9 @@ gio/gio.h
 -
 gdk-pixbuf/gdk-pixbuf.h
 -
-glib/gstdio.h
+stdio.h
+-
+gexiv2/gexiv2.h
 -
 glib/gi18n-lib.h
 -

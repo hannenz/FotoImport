@@ -55,24 +55,6 @@ FILE(INSTALL DESTINATION "/usr/share/applications" TYPE FILE FILES "/home/hannen
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  list(APPEND CPACK_ABSOLUTE_DESTINATION_FILES
-   "/usr/share/locale/de/LC_MESSAGES/fotoimport.mo")
-FILE(INSTALL DESTINATION "/usr/share/locale/de/LC_MESSAGES" TYPE FILE FILES "/home/hannenz/FotoImport/locale/de/LC_MESSAGES/fotoimport.mo")
-ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-
-IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  list(APPEND CPACK_ABSOLUTE_DESTINATION_FILES
-   "/usr/share/icons/hicolor/128x218/apps/fotoimport.png")
-FILE(INSTALL DESTINATION "/usr/share/icons/hicolor/128x218/apps" TYPE FILE FILES "/home/hannenz/FotoImport/icons/fotoimport.png")
-ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-
-IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  list(APPEND CPACK_ABSOLUTE_DESTINATION_FILES
-   "/usr/share/icons/hicolor/scalable/apps/fotoimport.svg")
-FILE(INSTALL DESTINATION "/usr/share/icons/hicolor/scalable/apps" TYPE FILE FILES "/home/hannenz/FotoImport/icons/fotoimport.svg")
-ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-
-IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
   execute_process (COMMAND gtk-update-icon-cache -t -f /usr/share/icons/hicolor)
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 

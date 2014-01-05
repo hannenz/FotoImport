@@ -126,7 +126,7 @@ fotoimport_valac.stamp: ../src/fotoimport.vala
 fotoimport_valac.stamp: ../src/fotoimport_window.vala
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/hannenz/FotoImport/build/CMakeFiles $(CMAKE_PROGRESS_4)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating src/main.c;src/fotoimport.c;src/fotoimport_window.c"
-	/usr/bin/valac -C -b /home/hannenz/FotoImport -d /home/hannenz/FotoImport/build --pkg=gtk+-3.0 --pkg=granite --pkg=gee-1.0 --pkg=posix -X -DGETTEXT_PACKAGE="fotoimport" /home/hannenz/FotoImport/src/main.vala /home/hannenz/FotoImport/src/fotoimport.vala /home/hannenz/FotoImport/src/fotoimport_window.vala
+	/usr/bin/valac -C -b /home/hannenz/FotoImport -d /home/hannenz/FotoImport/build --pkg=gtk+-3.0 --pkg=granite --pkg=gexiv2 --pkg=gee-1.0 --pkg=posix -X -DGETTEXT_PACKAGE="fotoimport" /home/hannenz/FotoImport/src/main.vala /home/hannenz/FotoImport/src/fotoimport.vala /home/hannenz/FotoImport/src/fotoimport_window.vala
 	touch /home/hannenz/FotoImport/build/fotoimport_valac.stamp
 
 # Object files for target fotoimport

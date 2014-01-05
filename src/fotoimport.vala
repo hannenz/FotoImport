@@ -1,6 +1,8 @@
 using Gtk;
 //using Gee;
+using GExiv2;
 using Fi;
+
 
 namespace Fi {
 
@@ -9,13 +11,10 @@ namespace Fi {
 		private FotoImportWindow window;
 
 		private ListStore fotos;
-		private List<string>files;
 
 		public  string srcdir;
 
-
 		construct {
-
 			/* Set up the app */
 		 	application_id	= "fotoimport.hannenz.de";
 		 	program_name	= "FotoImport";
@@ -44,68 +43,96 @@ namespace Fi {
 		public override void activate() {
 
 			this.window = new FotoImportWindow();
-			this.fotos = new ListStore(2, typeof(Gdk.Pixbuf), typeof(string));
+			this.fotos = new ListStore(
+				4,
+				typeof(Gdk.Pixbuf),
+				typeof(string),
+				typeof(string),
+				typeof(string)
+
+			);
 			this.window.icon_view.set_model(fotos);
-			this.window.start_button.clicked.connect( () => {
-				print ("Loading files in %s\n", this.srcdir);
-				this.load_files(this.srcdir);
-			});
+			this.find_files(this.srcdir);
+			this.window.run_button.clicked.connect (on_run_button_clicked);
+
 			this.window.destroy.connect( () => {
 				Gtk.main_quit();
 			});
 		}
 
-		public bool load_files(string srcpath) {
+		public void on_run_button_clicked(ToolButton button) {
+			List<TreePath> paths = this.window.icon_view.get_selected_items();
+			foreach (TreePath path in paths) {
+				TreeIter iter;
+				string filename, fullpath, date_string;
+				Date date;
+				this.fotos.get_iter(out iter, path);
+				this.fotos.get(iter, 1, out filename, 2, out fullpath, 3, out date_string);
 
-			Gtk.TreeIter iter;
-			Gdk.Pixbuf pixbuf;
+				date = Date();
+				date.set_parse(date_string);
 
-			find_files(srcpath);
-			foreach (string file in this.files) {
-
-				fotos.append (out iter);
-				try {
-					print("Adding to icon_view: %s\n", file);
-					pixbuf = new Gdk.Pixbuf.from_file_at_size(file, 128, 128);
-					fotos.set (iter, 0, pixbuf, 1, file);
-				}
-				catch (Error e) {
-					warning("Error: %s\n", e.message);
-				}
+				print ("%04u/%02u/%02u/%04u-%02u-%02u.jpg\n",
+					date.get_year(),
+					date.get_month(),
+					date.get_day(),
+					date.get_year(),
+					date.get_month(),
+					date.get_day()
+				);
 			}
-
-			return true;
 		}
 
 		public void find_files(string directory) {
-			this.files = new List<string>();
-
-			_find_files(directory);
-
+			File file = File.new_for_path (directory);
+			file.enumerate_children_async.begin ("standard::*", FileQueryInfoFlags.NOFOLLOW_SYMLINKS, Priority.DEFAULT, null, callback);
 		}
 
-		private void _find_files(string directory) {
+		public void callback(Object? obj, AsyncResult res) {
+			File file = (File)obj;
+
 			try {
-				Dir dir = Dir.open(directory, 0);
-				string? name = null;
+				FileEnumerator enumerator = file.enumerate_children_async.end (res);
+				FileInfo info;
+				while ((info = enumerator.next_file (null)) != null) {
 
-				while ((name = dir.read_name()) != null){
-					string path = Path.build_filename(directory, name);
-				//	string type = "";
+					string fullpath = Path.build_filename(file.get_path(), info.get_name());
+					FileType type = info.get_file_type();
 
-					if (FileUtils.test(path, FileTest.IS_REGULAR)){
-						if (path.has_suffix("jpg") || path.has_suffix("jpeg") || path.has_suffix("JPG") || path.has_suffix("JPEG")){
-							print("Found file:%s\n", Path.build_filename(directory, name));
-							this.files.append(Path.build_filename(directory, name));
-						}
+					if (type == FileType.DIRECTORY) {
+
+						File _file = File.new_for_path(fullpath);
+						_file.enumerate_children_async.begin ("standard::name, standard::type", FileQueryInfoFlags.NOFOLLOW_SYMLINKS, Priority.DEFAULT, null, callback);
+
 					}
-					else if (FileUtils.test(path, FileTest.IS_DIR)){
-						_find_files(path);
+					else if (type == FileType.REGULAR){
+						stdout.printf ("%s\n", fullpath);
+
+						var meta = new Metadata();
+						meta.open_path(fullpath);
+						string mime_type = meta.get_mime_type();
+
+						if (mime_type == "image/jpeg"){
+
+							string date_string = meta.get_tag_string("Exif.Image.DateTime").slice(0, 10).replace(":", "-");
+							Gtk.TreeIter iter;
+							Gdk.Pixbuf pixbuf;
+
+							this.fotos.append(out iter);
+							pixbuf = new Gdk.Pixbuf.from_file_at_size(fullpath, 128, 128);
+							fotos.set (
+								iter, 
+								0, pixbuf, 
+								1, Path.get_basename(fullpath),
+								2, fullpath,
+								3, date_string
+							);
+						}
 					}
 				}
 			}
 			catch (Error e) {
-				warning("%s", e.message);
+				stdout.printf ("Error: %s\n", e.message);
 			}
 		}
 	}
