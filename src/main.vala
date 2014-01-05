@@ -18,9 +18,11 @@ using Fi;
 [CCode(cname="GETTEXT_PACKAGE")] extern const string GETTEXT_PACKAGE;
 
 public static string _app_cmd_name;
+public string srcdir;
 
 static const OptionEntry[] entries = {
 	{ "debug", 'd', 0, OptionArg.NONE, null, N_("Enable debugging"), null },
+	{ "srcdir", 's', 0, OptionArg.STRING, ref srcdir, N_("Source directory"), null },
 	{ null }
 };
 
@@ -41,6 +43,7 @@ static int main(string[] args){
 	Gtk.init(ref args);
 
 	var app = new FotoImport();
+	app.srcdir = srcdir;
 	ret = app.run(args);
 
 	Gtk.main();

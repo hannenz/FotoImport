@@ -4,6 +4,7 @@ namespace Fi {
 	public class FotoImportWindow : Gtk.Window {
 
 		public Gtk.Box info_bar_box;
+		public Gtk.Button start_button;
 		public Gtk.Toolbar toolbar;
 		public Gtk.ToolButton open_button;
 
@@ -20,6 +21,9 @@ namespace Fi {
 			/* Layout and containers */
 			var vbox = new Box(Gtk.Orientation.VERTICAL, 0);
 			var swin = new ScrolledWindow(null, null);
+
+			start_button = new Gtk.Button.with_label("Start");
+			vbox.pack_start(start_button, false, false, 0);
 
 			vbox.pack_start(swin, true, true, 0);
 			swin.add(this.icon_view);

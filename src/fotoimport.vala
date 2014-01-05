@@ -7,7 +7,12 @@ namespace Fi {
 	public class FotoImport : Granite.Application {
 
 		private FotoImportWindow window;
+
 		private ListStore fotos;
+		private List<string>files;
+
+		public  string srcdir;
+
 
 		construct {
 
@@ -32,67 +37,76 @@ namespace Fi {
 
 			Granite.Services.Logger.initialize("FotoImport");
 			Granite.Services.Logger.DisplayLevel = Granite.Services.LogLevel.DEBUG;
-
-			ApplicationFlags flags = ApplicationFlags.HANDLES_OPEN;
+			//ApplicationFlags flags = ApplicationFlags.HANDLES_OPEN;
 			set_flags(flags);
-
 		}
 
 		public override void activate() {
 
 			this.window = new FotoImportWindow();
-
-			fotos = new ListStore(2, typeof(Gdk.Pixbuf), typeof(string));
-
+			this.fotos = new ListStore(2, typeof(Gdk.Pixbuf), typeof(string));
 			this.window.icon_view.set_model(fotos);
+			this.window.start_button.clicked.connect( () => {
+				print ("Loading files in %s\n", this.srcdir);
+				this.load_files(this.srcdir);
+			});
+			this.window.destroy.connect( () => {
+				Gtk.main_quit();
+			});
+		}
 
-			string srcpath = "/home/hannenz/Bilder/Fotos/Incoming";
+		public bool load_files(string srcpath) {
+
 			Gtk.TreeIter iter;
 			Gdk.Pixbuf pixbuf;
 
-			List<string> files = find_files(srcpath);
-			foreach (string file in files) {
+			find_files(srcpath);
+			foreach (string file in this.files) {
 
 				fotos.append (out iter);
 				try {
-					pixbuf = new Gdk.Pixbuf.from_file_at_size(Path.build_filename(srcpath, file), 128, 128);
+					print("Adding to icon_view: %s\n", file);
+					pixbuf = new Gdk.Pixbuf.from_file_at_size(file, 128, 128);
 					fotos.set (iter, 0, pixbuf, 1, file);
 				}
 				catch (Error e) {
 					warning("Error: %s\n", e.message);
 				}
 			}
-			this.window.destroy.connect( () => {
-				Gtk.main_quit();
-			});
+
+			return true;
 		}
 
-		public List<string> find_files(string directory) {
-			List<string>files = new List<string>();
+		public void find_files(string directory) {
+			this.files = new List<string>();
 
+			_find_files(directory);
+
+		}
+
+		private void _find_files(string directory) {
 			try {
 				Dir dir = Dir.open(directory, 0);
 				string? name = null;
 
 				while ((name = dir.read_name()) != null){
 					string path = Path.build_filename(directory, name);
-					string type = "";
+				//	string type = "";
 
 					if (FileUtils.test(path, FileTest.IS_REGULAR)){
 						if (path.has_suffix("jpg") || path.has_suffix("jpeg") || path.has_suffix("JPG") || path.has_suffix("JPEG")){
-							files.append(name);
+							print("Found file:%s\n", Path.build_filename(directory, name));
+							this.files.append(Path.build_filename(directory, name));
 						}
 					}
 					else if (FileUtils.test(path, FileTest.IS_DIR)){
-						// recurse
+						_find_files(path);
 					}
 				}
 			}
 			catch (Error e) {
 				warning("%s", e.message);
 			}
-
-			return files;
 		}
 	}
 }

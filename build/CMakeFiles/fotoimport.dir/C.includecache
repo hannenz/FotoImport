@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/hannenz/FotoImport/build/src/fotoimport.c
+glib.h
+-
+glib-object.h
+-
+granite.h
+-
+stdlib.h
+-
+string.h
+-
+gtk/gtk.h
+-
+gio/gio.h
+-
+gdk-pixbuf/gdk-pixbuf.h
+-
+glib/gstdio.h
+-
+glib/gi18n-lib.h
+-
+

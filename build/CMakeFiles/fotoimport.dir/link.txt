@@ -1,0 +1,1 @@
+/usr/bin/gcc      CMakeFiles/fotoimport.dir/src/main.c.o CMakeFiles/fotoimport.dir/src/fotoimport.c.o CMakeFiles/fotoimport.dir/src/fotoimport_window.c.o  -o fotoimport -rdynamic -lgranite -lgthread-2.0 -lrt -lgtk-3 -lgdk-3 -latk-1.0 -lgio-2.0 -lpangocairo-1.0 -lgdk_pixbuf-2.0 -lcairo-gobject -lpango-1.0 -lcairo -lgee -lgobject-2.0 -lglib-2.0 
