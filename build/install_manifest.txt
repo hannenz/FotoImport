@@ -1,3 +1,0 @@
-/usr/bin/fotoimport
-/usr/share/applications/fotoimport.desktop
-/usr/share/glib-2.0/schemas/org.pantheon.fotoimport.gschema.xml

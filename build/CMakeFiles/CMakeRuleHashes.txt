@@ -1,8 +1,0 @@
-# Hashes of file build rules.
-<<<<<<< HEAD
-8bc593a3c0f29b7666239ad63b693bc5 fotoimport_valac.stamp
-93918d20241546f8f675713797645aec src/main.c
-=======
-faa1e24b7256f33e3a3bdcc54967d562 fotoimport_valac.stamp
-ff16cdfbf1c881f7a6c122a41455cf99 src/main.c
->>>>>>> ba214d17e010295b027f26a2cc5e48ebd6d7d4b6

@@ -1,1 +1,0 @@
-/home/hannenz/Share/Projekte/FotoImport/build/CMakeFiles/fotoimport.dir
