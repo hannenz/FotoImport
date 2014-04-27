@@ -51,7 +51,11 @@ ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unsp
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
   list(APPEND CPACK_ABSOLUTE_DESTINATION_FILES
    "/usr/share/applications/fotoimport.desktop")
+<<<<<<< HEAD
 FILE(INSTALL DESTINATION "/usr/share/applications" TYPE FILE FILES "/home/hannenz/Share/Projekte/FotoImport/data/fotoimport.desktop")
+=======
+FILE(INSTALL DESTINATION "/usr/share/applications" TYPE FILE FILES "/home/hannenz/FotoImport/data/fotoimport.desktop")
+>>>>>>> ba214d17e010295b027f26a2cc5e48ebd6d7d4b6
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")

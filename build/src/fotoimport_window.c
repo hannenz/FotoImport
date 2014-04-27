@@ -123,9 +123,13 @@ static GObject * fi_foto_import_window_constructor (GType type, guint n_construc
 	GtkScrolledWindow* _tmp9_;
 	GtkScrolledWindow* _tmp10_;
 	GtkIconView* _tmp11_;
+<<<<<<< HEAD
 	GtkScrolledWindow* _tmp12_;
 	GtkIconView* _tmp13_;
 	GtkBox* _tmp14_;
+=======
+	GtkBox* _tmp12_;
+>>>>>>> ba214d17e010295b027f26a2cc5e48ebd6d7d4b6
 	parent_class = G_OBJECT_CLASS (fi_foto_import_window_parent_class);
 	obj = parent_class->constructor (type, n_construct_properties, construct_properties);
 	self = G_TYPE_CHECK_INSTANCE_CAST (obj, FI_TYPE_FOTO_IMPORT_WINDOW, FiFotoImportWindow);
@@ -158,12 +162,17 @@ static GObject * fi_foto_import_window_constructor (GType type, guint n_construc
 	_tmp10_ = swin;
 	_tmp11_ = self->icon_view;
 	gtk_container_add ((GtkContainer*) _tmp10_, (GtkWidget*) _tmp11_);
+<<<<<<< HEAD
 	_tmp12_ = swin;
 	g_object_set (_tmp12_, "hscrollbar-policy", GTK_POLICY_ALWAYS, NULL);
 	_tmp13_ = self->icon_view;
 	g_signal_connect_object ((GtkWidget*) _tmp13_, "size-allocate", (GCallback) __fi_foto_import_window___lambda2__gtk_widget_size_allocate, self, 0);
 	_tmp14_ = vbox;
 	gtk_container_add ((GtkContainer*) self, (GtkWidget*) _tmp14_);
+=======
+	_tmp12_ = vbox;
+	gtk_container_add ((GtkContainer*) self, (GtkWidget*) _tmp12_);
+>>>>>>> ba214d17e010295b027f26a2cc5e48ebd6d7d4b6
 	gtk_widget_show_all ((GtkWidget*) self);
 	_g_object_unref0 (swin);
 	_g_object_unref0 (vbox);
