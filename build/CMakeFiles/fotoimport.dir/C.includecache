@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/hannenz/FotoImport/build/src/fotoimport.c
+/home/hannenz/Share/Projekte/FotoImport/build/src/fotoimport.c
 glib.h
 -
 glib-object.h

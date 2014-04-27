@@ -42,6 +42,8 @@ namespace Fi {
 
 		public override void activate() {
 
+			print ("THE SRCDIR IS: %s\n", this.srcdir);
+
 			this.window = new FotoImportWindow();
 			this.fotos = new ListStore(
 				4,
@@ -58,9 +60,44 @@ namespace Fi {
 			this.window.destroy.connect( () => {
 				Gtk.main_quit();
 			});
+
+			this.window.icon_view.item_activated.connect( (path) => {
+					TreeIter iter;
+					string fullpath;
+					this.fotos.get_iter(out iter, path);
+					this.fotos.get(iter, 2, out fullpath);
+					print("%s\n", fullpath);
+
+					string[] argv = new string[2];
+					argv[0] = "/usr/bin/eog"; //tt is the name of the program
+					argv[1] = fullpath;
+
+					Pid child_pid;
+					int input_fd;
+					int output_fd;
+					int error_fd;
+					try {
+						Process.spawn_async_with_pipes(
+							null, // working directory, null == inherit from parent
+							argv, //argv
+							Environ.get(),
+							SpawnFlags.SEARCH_PATH | SpawnFlags.DO_NOT_REAP_CHILD,
+							null,   // child_setup
+							out child_pid,
+							out input_fd,
+							out output_fd,
+							out error_fd
+						);
+					}
+					catch (Error e) {
+						stderr.printf ("Could not load UI: %s\n", e.message);
+					}
+				});
+
 		}
 
 		public void on_run_button_clicked(ToolButton button) {
+
 			List<TreePath> paths = this.window.icon_view.get_selected_items();
 			foreach (TreePath path in paths) {
 				TreeIter iter;
@@ -109,25 +146,32 @@ namespace Fi {
 						stdout.printf ("%s\n", fullpath);
 
 						var meta = new Metadata();
-						meta.open_path(fullpath);
-						string mime_type = meta.get_mime_type();
 
-						if (mime_type == "image/jpeg"){
+						try {
+							meta.open_path(fullpath);
+							string mime_type = meta.get_mime_type();
 
-							string date_string = meta.get_tag_string("Exif.Image.DateTime").slice(0, 10).replace(":", "-");
-							Gtk.TreeIter iter;
-							Gdk.Pixbuf pixbuf;
+							if (mime_type == "image/jpeg"){
 
-							this.fotos.append(out iter);
-							pixbuf = new Gdk.Pixbuf.from_file_at_size(fullpath, 128, 128);
-							fotos.set (
-								iter, 
-								0, pixbuf, 
-								1, Path.get_basename(fullpath),
-								2, fullpath,
-								3, date_string
-							);
+								string date_string = meta.get_tag_string("Exif.Image.DateTime").slice(0, 10).replace(":", "-");
+								Gtk.TreeIter iter;
+								Gdk.Pixbuf pixbuf;
+
+								this.fotos.append(out iter);
+								pixbuf = new Gdk.Pixbuf.from_file_at_size(fullpath, 128, 128);
+								fotos.set (
+									iter, 
+									0, pixbuf, 
+									1, Path.get_basename(fullpath),
+									2, fullpath,
+									3, date_string
+								);
+							}
 						}
+						catch (Error e) {
+							
+						}
+
 					}
 				}
 			}

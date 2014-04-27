@@ -38,11 +38,11 @@ typedef struct _FiFotoImportWindowClass FiFotoImportWindowClass;
 #define _g_object_unref0(var) ((var == NULL) ? NULL : (var = (g_object_unref (var), NULL)))
 #define _g_free0(var) (var = (g_free (var), NULL))
 typedef struct _FiFotoImportWindowPrivate FiFotoImportWindowPrivate;
+#define _g_error_free0(var) ((var == NULL) ? NULL : (var = (g_error_free (var), NULL)))
 #define _gtk_tree_path_free0(var) ((var == NULL) ? NULL : (var = (gtk_tree_path_free (var), NULL)))
 #define __g_list_free__gtk_tree_path_free0_0(var) ((var == NULL) ? NULL : (var = (_g_list_free__gtk_tree_path_free0_ (var), NULL)))
-#define _gexiv2_metadata_free0(var) ((var == NULL) ? NULL : (var = (gexiv2_metadata_free (var), NULL)))
 #define _g_regex_unref0(var) ((var == NULL) ? NULL : (var = (g_regex_unref (var), NULL)))
-#define _g_error_free0(var) ((var == NULL) ? NULL : (var = (g_error_free (var), NULL)))
+#define _gexiv2_metadata_free0(var) ((var == NULL) ? NULL : (var = (gexiv2_metadata_free (var), NULL)))
 
 struct _FiFotoImport {
 	GraniteApplication parent_instance;
@@ -92,8 +92,10 @@ FiFotoImportWindow* fi_foto_import_window_construct (GType object_type);
 void fi_foto_import_find_files (FiFotoImport* self, const gchar* directory);
 void fi_foto_import_on_run_button_clicked (FiFotoImport* self, GtkToolButton* button);
 static void _fi_foto_import_on_run_button_clicked_gtk_tool_button_clicked (GtkToolButton* _sender, gpointer self);
-static void __lambda2_ (FiFotoImport* self);
-static void ___lambda2__gtk_widget_destroy (GtkWidget* _sender, gpointer self);
+static void __lambda3_ (FiFotoImport* self);
+static void ___lambda3__gtk_widget_destroy (GtkWidget* _sender, gpointer self);
+static void __lambda4_ (FiFotoImport* self, GtkTreePath* path);
+static void ___lambda4__gtk_icon_view_item_activated (GtkIconView* _sender, GtkTreePath* path, gpointer self);
 static void _gtk_tree_path_free0_ (gpointer var);
 static void _g_list_free__gtk_tree_path_free0_ (GList* self);
 void fi_foto_import_callback (FiFotoImport* self, GObject* obj, GAsyncResult* res);
@@ -102,6 +104,7 @@ static GObject * fi_foto_import_constructor (GType type, guint n_construct_prope
 static void fi_foto_import_finalize (GObject* obj);
 static void _vala_array_destroy (gpointer array, gint array_length, GDestroyNotify destroy_func);
 static void _vala_array_free (gpointer array, gint array_length, GDestroyNotify destroy_func);
+static gint _vala_array_length (gpointer array);
 
 
 FiFotoImport* fi_foto_import_construct (GType object_type) {
@@ -132,46 +135,151 @@ static void _fi_foto_import_on_run_button_clicked_gtk_tool_button_clicked (GtkTo
 }
 
 
-static void __lambda2_ (FiFotoImport* self) {
+static void __lambda3_ (FiFotoImport* self) {
 	gtk_main_quit ();
 }
 
 
-static void ___lambda2__gtk_widget_destroy (GtkWidget* _sender, gpointer self) {
-	__lambda2_ (self);
+static void ___lambda3__gtk_widget_destroy (GtkWidget* _sender, gpointer self) {
+	__lambda3_ (self);
+}
+
+
+static void __lambda4_ (FiFotoImport* self, GtkTreePath* path) {
+	GtkTreeIter iter = {0};
+	gchar* fullpath = NULL;
+	GtkListStore* _tmp0_;
+	GtkTreePath* _tmp1_;
+	GtkTreeIter _tmp2_ = {0};
+	GtkListStore* _tmp3_;
+	GtkTreeIter _tmp4_;
+	gchar** _tmp5_ = NULL;
+	gchar** argv;
+	gint argv_length1;
+	gint _argv_size_;
+	gchar* _tmp6_;
+	gchar* _tmp7_;
+	gchar* _tmp8_;
+	gchar* _tmp9_;
+	GPid child_pid = 0;
+	gint input_fd = 0;
+	gint output_fd = 0;
+	gint error_fd = 0;
+	GError * _inner_error_ = NULL;
+	g_return_if_fail (path != NULL);
+	_tmp0_ = self->priv->fotos;
+	_tmp1_ = path;
+	gtk_tree_model_get_iter ((GtkTreeModel*) _tmp0_, &_tmp2_, _tmp1_);
+	iter = _tmp2_;
+	_tmp3_ = self->priv->fotos;
+	_tmp4_ = iter;
+	gtk_tree_model_get ((GtkTreeModel*) _tmp3_, &_tmp4_, 2, &fullpath, -1);
+	g_print ("%s\n", fullpath);
+	_tmp5_ = g_new0 (gchar*, 2 + 1);
+	argv = _tmp5_;
+	argv_length1 = 2;
+	_argv_size_ = argv_length1;
+	_tmp6_ = g_strdup ("/usr/bin/eog");
+	_g_free0 (argv[0]);
+	argv[0] = _tmp6_;
+	_tmp7_ = argv[0];
+	_tmp8_ = g_strdup (fullpath);
+	_g_free0 (argv[1]);
+	argv[1] = _tmp8_;
+	_tmp9_ = argv[1];
+	{
+		gchar** _tmp10_;
+		gchar** _tmp11_ = NULL;
+		gchar** _tmp12_;
+		gint _tmp12__length1;
+		GPid _tmp13_ = 0;
+		gint _tmp14_ = 0;
+		gint _tmp15_ = 0;
+		gint _tmp16_ = 0;
+		_tmp11_ = _tmp10_ = g_get_environ ();
+		_tmp12_ = _tmp11_;
+		_tmp12__length1 = _vala_array_length (_tmp10_);
+		g_spawn_async_with_pipes ("/", argv, _tmp12_, G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD, NULL, NULL, &_tmp13_, &_tmp14_, &_tmp15_, &_tmp16_, &_inner_error_);
+		child_pid = _tmp13_;
+		input_fd = _tmp14_;
+		output_fd = _tmp15_;
+		error_fd = _tmp16_;
+		_tmp12_ = (_vala_array_free (_tmp12_, _tmp12__length1, (GDestroyNotify) g_free), NULL);
+		if (_inner_error_ != NULL) {
+			goto __catch1_g_error;
+		}
+	}
+	goto __finally1;
+	__catch1_g_error:
+	{
+		GError* e = NULL;
+		FILE* _tmp17_;
+		GError* _tmp18_;
+		const gchar* _tmp19_;
+		e = _inner_error_;
+		_inner_error_ = NULL;
+		_tmp17_ = stderr;
+		_tmp18_ = e;
+		_tmp19_ = _tmp18_->message;
+		fprintf (_tmp17_, "Could not load UI: %s\n", _tmp19_);
+		_g_error_free0 (e);
+	}
+	__finally1:
+	if (_inner_error_ != NULL) {
+		argv = (_vala_array_free (argv, argv_length1, (GDestroyNotify) g_free), NULL);
+		_g_free0 (fullpath);
+		g_critical ("file %s: line %d: uncaught error: %s (%s, %d)", __FILE__, __LINE__, _inner_error_->message, g_quark_to_string (_inner_error_->domain), _inner_error_->code);
+		g_clear_error (&_inner_error_);
+		return;
+	}
+	argv = (_vala_array_free (argv, argv_length1, (GDestroyNotify) g_free), NULL);
+	_g_free0 (fullpath);
+}
+
+
+static void ___lambda4__gtk_icon_view_item_activated (GtkIconView* _sender, GtkTreePath* path, gpointer self) {
+	__lambda4_ (self, path);
 }
 
 
 static void fi_foto_import_real_activate (GApplication* base) {
 	FiFotoImport * self;
-	FiFotoImportWindow* _tmp0_;
-	GtkListStore* _tmp1_;
-	FiFotoImportWindow* _tmp2_;
-	GtkIconView* _tmp3_;
-	GtkListStore* _tmp4_;
-	const gchar* _tmp5_;
-	FiFotoImportWindow* _tmp6_;
-	GtkToolButton* _tmp7_;
-	FiFotoImportWindow* _tmp8_;
+	const gchar* _tmp0_;
+	FiFotoImportWindow* _tmp1_;
+	GtkListStore* _tmp2_;
+	FiFotoImportWindow* _tmp3_;
+	GtkIconView* _tmp4_;
+	GtkListStore* _tmp5_;
+	const gchar* _tmp6_;
+	FiFotoImportWindow* _tmp7_;
+	GtkToolButton* _tmp8_;
+	FiFotoImportWindow* _tmp9_;
+	FiFotoImportWindow* _tmp10_;
+	GtkIconView* _tmp11_;
 	self = (FiFotoImport*) base;
-	_tmp0_ = fi_foto_import_window_new ();
-	g_object_ref_sink (_tmp0_);
+	_tmp0_ = self->srcdir;
+	g_print ("THE SRCDIR IS: %s\n", _tmp0_);
+	_tmp1_ = fi_foto_import_window_new ();
+	g_object_ref_sink (_tmp1_);
 	_g_object_unref0 (self->priv->window);
-	self->priv->window = _tmp0_;
-	_tmp1_ = gtk_list_store_new (4, GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING);
+	self->priv->window = _tmp1_;
+	_tmp2_ = gtk_list_store_new (4, GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING);
 	_g_object_unref0 (self->priv->fotos);
-	self->priv->fotos = _tmp1_;
-	_tmp2_ = self->priv->window;
-	_tmp3_ = _tmp2_->icon_view;
-	_tmp4_ = self->priv->fotos;
-	gtk_icon_view_set_model (_tmp3_, (GtkTreeModel*) _tmp4_);
-	_tmp5_ = self->srcdir;
-	fi_foto_import_find_files (self, _tmp5_);
-	_tmp6_ = self->priv->window;
-	_tmp7_ = _tmp6_->run_button;
-	g_signal_connect_object (_tmp7_, "clicked", (GCallback) _fi_foto_import_on_run_button_clicked_gtk_tool_button_clicked, self, 0);
-	_tmp8_ = self->priv->window;
-	g_signal_connect_object ((GtkWidget*) _tmp8_, "destroy", (GCallback) ___lambda2__gtk_widget_destroy, self, 0);
+	self->priv->fotos = _tmp2_;
+	_tmp3_ = self->priv->window;
+	_tmp4_ = _tmp3_->icon_view;
+	_tmp5_ = self->priv->fotos;
+	gtk_icon_view_set_model (_tmp4_, (GtkTreeModel*) _tmp5_);
+	_tmp6_ = self->srcdir;
+	fi_foto_import_find_files (self, _tmp6_);
+	_tmp7_ = self->priv->window;
+	_tmp8_ = _tmp7_->run_button;
+	g_signal_connect_object (_tmp8_, "clicked", (GCallback) _fi_foto_import_on_run_button_clicked_gtk_tool_button_clicked, self, 0);
+	_tmp9_ = self->priv->window;
+	g_signal_connect_object ((GtkWidget*) _tmp9_, "destroy", (GCallback) ___lambda3__gtk_widget_destroy, self, 0);
+	_tmp10_ = self->priv->window;
+	_tmp11_ = _tmp10_->icon_view;
+	g_signal_connect_object (_tmp11_, "item-activated", (GCallback) ___lambda4__gtk_icon_view_item_activated, self, 0);
 }
 
 
@@ -385,7 +493,7 @@ static gchar* string_replace (const gchar* self, const gchar* old, const gchar* 
 		regex = _tmp4_;
 		if (_inner_error_ != NULL) {
 			if (_inner_error_->domain == G_REGEX_ERROR) {
-				goto __catch2_g_regex_error;
+				goto __catch4_g_regex_error;
 			}
 			g_critical ("file %s: line %d: unexpected error: %s (%s, %d)", __FILE__, __LINE__, _inner_error_->message, g_quark_to_string (_inner_error_->domain), _inner_error_->code);
 			g_clear_error (&_inner_error_);
@@ -398,7 +506,7 @@ static gchar* string_replace (const gchar* self, const gchar* old, const gchar* 
 		if (_inner_error_ != NULL) {
 			_g_regex_unref0 (regex);
 			if (_inner_error_->domain == G_REGEX_ERROR) {
-				goto __catch2_g_regex_error;
+				goto __catch4_g_regex_error;
 			}
 			_g_regex_unref0 (regex);
 			g_critical ("file %s: line %d: unexpected error: %s (%s, %d)", __FILE__, __LINE__, _inner_error_->message, g_quark_to_string (_inner_error_->domain), _inner_error_->code);
@@ -409,8 +517,8 @@ static gchar* string_replace (const gchar* self, const gchar* old, const gchar* 
 		_g_regex_unref0 (regex);
 		return result;
 	}
-	goto __finally2;
-	__catch2_g_regex_error:
+	goto __finally4;
+	__catch4_g_regex_error:
 	{
 		GError* e = NULL;
 		e = _inner_error_;
@@ -418,7 +526,7 @@ static gchar* string_replace (const gchar* self, const gchar* old, const gchar* 
 		g_assert_not_reached ();
 		_g_error_free0 (e);
 	}
-	__finally2:
+	__finally4:
 	if (_inner_error_ != NULL) {
 		g_critical ("file %s: line %d: uncaught error: %s (%s, %d)", __FILE__, __LINE__, _inner_error_->message, g_quark_to_string (_inner_error_->domain), _inner_error_->code);
 		g_clear_error (&_inner_error_);
@@ -448,7 +556,7 @@ void fi_foto_import_callback (FiFotoImport* self, GObject* obj, GAsyncResult* re
 		_tmp4_ = g_file_enumerate_children_finish (_tmp2_, _tmp3_, &_inner_error_);
 		enumerator = _tmp4_;
 		if (_inner_error_ != NULL) {
-			goto __catch1_g_error;
+			goto __catch2_g_error;
 		}
 		while (TRUE) {
 			GFileEnumerator* _tmp5_;
@@ -473,7 +581,7 @@ void fi_foto_import_callback (FiFotoImport* self, GObject* obj, GAsyncResult* re
 			if (_inner_error_ != NULL) {
 				_g_object_unref0 (info);
 				_g_object_unref0 (enumerator);
-				goto __catch1_g_error;
+				goto __catch2_g_error;
 			}
 			_g_object_unref0 (info);
 			info = _tmp7_;
@@ -513,99 +621,109 @@ void fi_foto_import_callback (FiFotoImport* self, GObject* obj, GAsyncResult* re
 					const gchar* _tmp24_;
 					GExiv2Metadata* _tmp25_;
 					GExiv2Metadata* meta;
-					GExiv2Metadata* _tmp26_;
-					const gchar* _tmp27_;
-					GExiv2Metadata* _tmp28_;
-					const gchar* _tmp29_ = NULL;
-					gchar* _tmp30_;
-					gchar* mime_type;
-					const gchar* _tmp31_;
 					_tmp23_ = stdout;
 					_tmp24_ = fullpath;
 					fprintf (_tmp23_, "%s\n", _tmp24_);
 					_tmp25_ = gexiv2_metadata_new ();
 					meta = _tmp25_;
-					_tmp26_ = meta;
-					_tmp27_ = fullpath;
-					gexiv2_metadata_open_path (_tmp26_, _tmp27_, &_inner_error_);
+					{
+						GExiv2Metadata* _tmp26_;
+						const gchar* _tmp27_;
+						GExiv2Metadata* _tmp28_;
+						const gchar* _tmp29_ = NULL;
+						gchar* _tmp30_;
+						gchar* mime_type;
+						const gchar* _tmp31_;
+						_tmp26_ = meta;
+						_tmp27_ = fullpath;
+						gexiv2_metadata_open_path (_tmp26_, _tmp27_, &_inner_error_);
+						if (_inner_error_ != NULL) {
+							goto __catch3_g_error;
+						}
+						_tmp28_ = meta;
+						_tmp29_ = gexiv2_metadata_get_mime_type (_tmp28_);
+						_tmp30_ = g_strdup (_tmp29_);
+						mime_type = _tmp30_;
+						_tmp31_ = mime_type;
+						if (g_strcmp0 (_tmp31_, "image/jpeg") == 0) {
+							GExiv2Metadata* _tmp32_;
+							gchar* _tmp33_ = NULL;
+							gchar* _tmp34_;
+							gchar* _tmp35_ = NULL;
+							gchar* _tmp36_;
+							gchar* _tmp37_ = NULL;
+							gchar* _tmp38_;
+							gchar* date_string;
+							GtkTreeIter iter = {0};
+							GdkPixbuf* pixbuf = NULL;
+							GtkListStore* _tmp39_;
+							GtkTreeIter _tmp40_ = {0};
+							const gchar* _tmp41_;
+							GdkPixbuf* _tmp42_;
+							GdkPixbuf* _tmp43_;
+							GtkListStore* _tmp44_;
+							GtkTreeIter _tmp45_;
+							GdkPixbuf* _tmp46_;
+							const gchar* _tmp47_;
+							gchar* _tmp48_ = NULL;
+							gchar* _tmp49_;
+							const gchar* _tmp50_;
+							const gchar* _tmp51_;
+							_tmp32_ = meta;
+							_tmp33_ = gexiv2_metadata_get_tag_string (_tmp32_, "Exif.Image.DateTime");
+							_tmp34_ = _tmp33_;
+							_tmp35_ = string_slice (_tmp34_, (glong) 0, (glong) 10);
+							_tmp36_ = _tmp35_;
+							_tmp37_ = string_replace (_tmp36_, ":", "-");
+							_tmp38_ = _tmp37_;
+							_g_free0 (_tmp36_);
+							_g_free0 (_tmp34_);
+							date_string = _tmp38_;
+							_tmp39_ = self->priv->fotos;
+							gtk_list_store_append (_tmp39_, &_tmp40_);
+							iter = _tmp40_;
+							_tmp41_ = fullpath;
+							_tmp42_ = gdk_pixbuf_new_from_file_at_size (_tmp41_, 128, 128, &_inner_error_);
+							_tmp43_ = _tmp42_;
+							if (_inner_error_ != NULL) {
+								_g_object_unref0 (pixbuf);
+								_g_free0 (date_string);
+								_g_free0 (mime_type);
+								goto __catch3_g_error;
+							}
+							_g_object_unref0 (pixbuf);
+							pixbuf = _tmp43_;
+							_tmp44_ = self->priv->fotos;
+							_tmp45_ = iter;
+							_tmp46_ = pixbuf;
+							_tmp47_ = fullpath;
+							_tmp48_ = g_path_get_basename (_tmp47_);
+							_tmp49_ = _tmp48_;
+							_tmp50_ = fullpath;
+							_tmp51_ = date_string;
+							gtk_list_store_set (_tmp44_, &_tmp45_, 0, _tmp46_, 1, _tmp49_, 2, _tmp50_, 3, _tmp51_, -1);
+							_g_free0 (_tmp49_);
+							_g_object_unref0 (pixbuf);
+							_g_free0 (date_string);
+						}
+						_g_free0 (mime_type);
+					}
+					goto __finally3;
+					__catch3_g_error:
+					{
+						GError* e = NULL;
+						e = _inner_error_;
+						_inner_error_ = NULL;
+						_g_error_free0 (e);
+					}
+					__finally3:
 					if (_inner_error_ != NULL) {
 						_gexiv2_metadata_free0 (meta);
 						_g_free0 (fullpath);
 						_g_object_unref0 (info);
 						_g_object_unref0 (enumerator);
-						goto __catch1_g_error;
+						goto __catch2_g_error;
 					}
-					_tmp28_ = meta;
-					_tmp29_ = gexiv2_metadata_get_mime_type (_tmp28_);
-					_tmp30_ = g_strdup (_tmp29_);
-					mime_type = _tmp30_;
-					_tmp31_ = mime_type;
-					if (g_strcmp0 (_tmp31_, "image/jpeg") == 0) {
-						GExiv2Metadata* _tmp32_;
-						gchar* _tmp33_ = NULL;
-						gchar* _tmp34_;
-						gchar* _tmp35_ = NULL;
-						gchar* _tmp36_;
-						gchar* _tmp37_ = NULL;
-						gchar* _tmp38_;
-						gchar* date_string;
-						GtkTreeIter iter = {0};
-						GdkPixbuf* pixbuf = NULL;
-						GtkListStore* _tmp39_;
-						GtkTreeIter _tmp40_ = {0};
-						const gchar* _tmp41_;
-						GdkPixbuf* _tmp42_;
-						GdkPixbuf* _tmp43_;
-						GtkListStore* _tmp44_;
-						GtkTreeIter _tmp45_;
-						GdkPixbuf* _tmp46_;
-						const gchar* _tmp47_;
-						gchar* _tmp48_ = NULL;
-						gchar* _tmp49_;
-						const gchar* _tmp50_;
-						const gchar* _tmp51_;
-						_tmp32_ = meta;
-						_tmp33_ = gexiv2_metadata_get_tag_string (_tmp32_, "Exif.Image.DateTime");
-						_tmp34_ = _tmp33_;
-						_tmp35_ = string_slice (_tmp34_, (glong) 0, (glong) 10);
-						_tmp36_ = _tmp35_;
-						_tmp37_ = string_replace (_tmp36_, ":", "-");
-						_tmp38_ = _tmp37_;
-						_g_free0 (_tmp36_);
-						_g_free0 (_tmp34_);
-						date_string = _tmp38_;
-						_tmp39_ = self->priv->fotos;
-						gtk_list_store_append (_tmp39_, &_tmp40_);
-						iter = _tmp40_;
-						_tmp41_ = fullpath;
-						_tmp42_ = gdk_pixbuf_new_from_file_at_size (_tmp41_, 128, 128, &_inner_error_);
-						_tmp43_ = _tmp42_;
-						if (_inner_error_ != NULL) {
-							_g_object_unref0 (pixbuf);
-							_g_free0 (date_string);
-							_g_free0 (mime_type);
-							_gexiv2_metadata_free0 (meta);
-							_g_free0 (fullpath);
-							_g_object_unref0 (info);
-							_g_object_unref0 (enumerator);
-							goto __catch1_g_error;
-						}
-						_g_object_unref0 (pixbuf);
-						pixbuf = _tmp43_;
-						_tmp44_ = self->priv->fotos;
-						_tmp45_ = iter;
-						_tmp46_ = pixbuf;
-						_tmp47_ = fullpath;
-						_tmp48_ = g_path_get_basename (_tmp47_);
-						_tmp49_ = _tmp48_;
-						_tmp50_ = fullpath;
-						_tmp51_ = date_string;
-						gtk_list_store_set (_tmp44_, &_tmp45_, 0, _tmp46_, 1, _tmp49_, 2, _tmp50_, 3, _tmp51_, -1);
-						_g_free0 (_tmp49_);
-						_g_object_unref0 (pixbuf);
-						_g_free0 (date_string);
-					}
-					_g_free0 (mime_type);
 					_gexiv2_metadata_free0 (meta);
 				}
 			}
@@ -614,8 +732,8 @@ void fi_foto_import_callback (FiFotoImport* self, GObject* obj, GAsyncResult* re
 		_g_object_unref0 (info);
 		_g_object_unref0 (enumerator);
 	}
-	goto __finally1;
-	__catch1_g_error:
+	goto __finally2;
+	__catch2_g_error:
 	{
 		GError* e = NULL;
 		FILE* _tmp52_;
@@ -629,7 +747,7 @@ void fi_foto_import_callback (FiFotoImport* self, GObject* obj, GAsyncResult* re
 		fprintf (_tmp52_, "Error: %s\n", _tmp54_);
 		_g_error_free0 (e);
 	}
-	__finally1:
+	__finally2:
 	if (_inner_error_ != NULL) {
 		_g_object_unref0 (file);
 		g_critical ("file %s: line %d: uncaught error: %s (%s, %d)", __FILE__, __LINE__, _inner_error_->message, g_quark_to_string (_inner_error_->domain), _inner_error_->code);
@@ -743,6 +861,18 @@ static void _vala_array_destroy (gpointer array, gint array_length, GDestroyNoti
 static void _vala_array_free (gpointer array, gint array_length, GDestroyNotify destroy_func) {
 	_vala_array_destroy (array, array_length, destroy_func);
 	g_free (array);
+}
+
+
+static gint _vala_array_length (gpointer array) {
+	int length;
+	length = 0;
+	if (array) {
+		while (((gpointer*) array)[length]) {
+			length++;
+		}
+	}
+	return length;
 }
 
 

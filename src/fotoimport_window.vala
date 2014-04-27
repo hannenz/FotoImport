@@ -1,6 +1,7 @@
 using Gtk;
 
 namespace Fi {
+
 	public class FotoImportWindow : Gtk.Window {
 
 		public Gtk.Box info_bar_box;
@@ -29,6 +30,16 @@ namespace Fi {
 			vbox.pack_start(toolbar, false, false, 0);
 			vbox.pack_start(swin, true, true, 0);
 			swin.add(this.icon_view);
+			// Force take up all space by the icon view when resizing the window
+			swin.hscrollbar_policy = Gtk.PolicyType.ALWAYS;
+			this.icon_view.size_allocate.connect( (alloc) => {
+					this.icon_view.set_columns(0);
+					this.icon_view.set_columns(-1);
+
+				});
+
+
+
 			add(vbox);
 			show_all();
 		}

@@ -43,7 +43,18 @@ static int main(string[] args){
 	Gtk.init(ref args);
 
 	var app = new FotoImport();
-	app.srcdir = srcdir;
+	if (srcdir != null){
+		app.srcdir = srcdir;
+	}
+	else if (args[1] != null ){
+		print ("Srcdir is: %s\n", args[1]);
+		app.srcdir = args[1];
+	}
+	else {
+		return 1;
+	}
+
+	debug ("Running app\n");
 	ret = app.run(args);
 
 	Gtk.main();

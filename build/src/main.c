@@ -68,22 +68,26 @@ gint _vala_main (gchar** args, int args_length1) {
 	gchar* _tmp0_;
 	GOptionContext* _tmp1_;
 	GOptionContext* context;
-	FiFotoImport* _tmp4_;
+	GOptionContext* _tmp2_;
+	FiFotoImport* _tmp6_;
 	FiFotoImport* app;
-	const gchar* _tmp5_;
-	gchar* _tmp6_;
-	gchar** _tmp7_;
-	gint _tmp7__length1;
-	gint _tmp8_ = 0;
+	const gchar* _tmp7_;
+	FiFotoImport* _tmp19_;
+	gchar** _tmp20_;
+	gint _tmp20__length1;
+	gint _tmp21_ = 0;
 	GError * _inner_error_ = NULL;
 	_tmp0_ = g_strdup ("FotoImport");
 	_g_free0 (_app_cmd_name);
 	_app_cmd_name = _tmp0_;
 	_tmp1_ = g_option_context_new ("- [src directory]");
 	context = _tmp1_;
-	g_option_context_add_main_entries (context, entries, GETTEXT_PACKAGE);
+	_tmp2_ = context;
+	g_option_context_add_main_entries (_tmp2_, entries, GETTEXT_PACKAGE);
 	{
-		g_option_context_parse (context, &args_length1, &args, &_inner_error_);
+		GOptionContext* _tmp3_;
+		_tmp3_ = context;
+		g_option_context_parse (_tmp3_, &args_length1, &args, &_inner_error_);
 		if (_inner_error_ != NULL) {
 			goto __catch0_g_error;
 		}
@@ -92,13 +96,13 @@ gint _vala_main (gchar** args, int args_length1) {
 	__catch0_g_error:
 	{
 		GError* e = NULL;
-		GError* _tmp2_;
-		const gchar* _tmp3_;
+		GError* _tmp4_;
+		const gchar* _tmp5_;
 		e = _inner_error_;
 		_inner_error_ = NULL;
-		_tmp2_ = e;
-		_tmp3_ = _tmp2_->message;
-		g_warning ("main.vala:40: %s", _tmp3_);
+		_tmp4_ = e;
+		_tmp5_ = _tmp4_->message;
+		g_warning ("main.vala:40: %s", _tmp5_);
 		_g_error_free0 (e);
 	}
 	__finally0:
@@ -109,16 +113,58 @@ gint _vala_main (gchar** args, int args_length1) {
 		return 0;
 	}
 	gtk_init (&args_length1, &args);
-	_tmp4_ = fi_foto_import_new ();
-	app = _tmp4_;
-	_tmp5_ = srcdir;
-	_tmp6_ = g_strdup (_tmp5_);
-	_g_free0 (app->srcdir);
-	app->srcdir = _tmp6_;
-	_tmp7_ = args;
-	_tmp7__length1 = args_length1;
-	_tmp8_ = granite_application_run ((GraniteApplication*) app, _tmp7_, _tmp7__length1);
-	ret = _tmp8_;
+	_tmp6_ = fi_foto_import_new ();
+	app = _tmp6_;
+	_tmp7_ = srcdir;
+	if (_tmp7_ != NULL) {
+		FiFotoImport* _tmp8_;
+		const gchar* _tmp9_;
+		gchar* _tmp10_;
+		_tmp8_ = app;
+		_tmp9_ = srcdir;
+		_tmp10_ = g_strdup (_tmp9_);
+		_g_free0 (_tmp8_->srcdir);
+		_tmp8_->srcdir = _tmp10_;
+	} else {
+		gchar** _tmp11_;
+		gint _tmp11__length1;
+		const gchar* _tmp12_;
+		_tmp11_ = args;
+		_tmp11__length1 = args_length1;
+		_tmp12_ = _tmp11_[1];
+		if (_tmp12_ != NULL) {
+			gchar** _tmp13_;
+			gint _tmp13__length1;
+			const gchar* _tmp14_;
+			FiFotoImport* _tmp15_;
+			gchar** _tmp16_;
+			gint _tmp16__length1;
+			const gchar* _tmp17_;
+			gchar* _tmp18_;
+			_tmp13_ = args;
+			_tmp13__length1 = args_length1;
+			_tmp14_ = _tmp13_[1];
+			g_print ("Srcdir is: %s\n", _tmp14_);
+			_tmp15_ = app;
+			_tmp16_ = args;
+			_tmp16__length1 = args_length1;
+			_tmp17_ = _tmp16_[1];
+			_tmp18_ = g_strdup (_tmp17_);
+			_g_free0 (_tmp15_->srcdir);
+			_tmp15_->srcdir = _tmp18_;
+		} else {
+			result = 1;
+			_g_object_unref0 (app);
+			_g_option_context_free0 (context);
+			return result;
+		}
+	}
+	g_debug ("main.vala:57: Running app\n");
+	_tmp19_ = app;
+	_tmp20_ = args;
+	_tmp20__length1 = args_length1;
+	_tmp21_ = granite_application_run ((GraniteApplication*) _tmp19_, _tmp20_, _tmp20__length1);
+	ret = _tmp21_;
 	gtk_main ();
 	result = ret;
 	_g_object_unref0 (app);

@@ -32,10 +32,10 @@ CMAKE_COMMAND = /usr/bin/cmake
 RM = /usr/bin/cmake -E remove -f
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/hannenz/FotoImport
+CMAKE_SOURCE_DIR = /home/hannenz/Share/Projekte/FotoImport
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/hannenz/FotoImport/build
+CMAKE_BINARY_DIR = /home/hannenz/Share/Projekte/FotoImport/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/fotoimport.dir/depend.make
@@ -48,17 +48,17 @@ include CMakeFiles/fotoimport.dir/flags.make
 
 CMakeFiles/fotoimport.dir/src/main.c.o: CMakeFiles/fotoimport.dir/flags.make
 CMakeFiles/fotoimport.dir/src/main.c.o: src/main.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hannenz/FotoImport/build/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hannenz/Share/Projekte/FotoImport/build/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object CMakeFiles/fotoimport.dir/src/main.c.o"
-	/usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/fotoimport.dir/src/main.c.o   -c /home/hannenz/FotoImport/build/src/main.c
+	/usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/fotoimport.dir/src/main.c.o   -c /home/hannenz/Share/Projekte/FotoImport/build/src/main.c
 
 CMakeFiles/fotoimport.dir/src/main.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/fotoimport.dir/src/main.c.i"
-	/usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -E /home/hannenz/FotoImport/build/src/main.c > CMakeFiles/fotoimport.dir/src/main.c.i
+	/usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -E /home/hannenz/Share/Projekte/FotoImport/build/src/main.c > CMakeFiles/fotoimport.dir/src/main.c.i
 
 CMakeFiles/fotoimport.dir/src/main.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/fotoimport.dir/src/main.c.s"
-	/usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -S /home/hannenz/FotoImport/build/src/main.c -o CMakeFiles/fotoimport.dir/src/main.c.s
+	/usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -S /home/hannenz/Share/Projekte/FotoImport/build/src/main.c -o CMakeFiles/fotoimport.dir/src/main.c.s
 
 CMakeFiles/fotoimport.dir/src/main.c.o.requires:
 .PHONY : CMakeFiles/fotoimport.dir/src/main.c.o.requires
@@ -71,17 +71,17 @@ CMakeFiles/fotoimport.dir/src/main.c.o.provides.build: CMakeFiles/fotoimport.dir
 
 CMakeFiles/fotoimport.dir/src/fotoimport.c.o: CMakeFiles/fotoimport.dir/flags.make
 CMakeFiles/fotoimport.dir/src/fotoimport.c.o: src/fotoimport.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hannenz/FotoImport/build/CMakeFiles $(CMAKE_PROGRESS_2)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hannenz/Share/Projekte/FotoImport/build/CMakeFiles $(CMAKE_PROGRESS_2)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object CMakeFiles/fotoimport.dir/src/fotoimport.c.o"
-	/usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/fotoimport.dir/src/fotoimport.c.o   -c /home/hannenz/FotoImport/build/src/fotoimport.c
+	/usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/fotoimport.dir/src/fotoimport.c.o   -c /home/hannenz/Share/Projekte/FotoImport/build/src/fotoimport.c
 
 CMakeFiles/fotoimport.dir/src/fotoimport.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/fotoimport.dir/src/fotoimport.c.i"
-	/usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -E /home/hannenz/FotoImport/build/src/fotoimport.c > CMakeFiles/fotoimport.dir/src/fotoimport.c.i
+	/usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -E /home/hannenz/Share/Projekte/FotoImport/build/src/fotoimport.c > CMakeFiles/fotoimport.dir/src/fotoimport.c.i
 
 CMakeFiles/fotoimport.dir/src/fotoimport.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/fotoimport.dir/src/fotoimport.c.s"
-	/usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -S /home/hannenz/FotoImport/build/src/fotoimport.c -o CMakeFiles/fotoimport.dir/src/fotoimport.c.s
+	/usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -S /home/hannenz/Share/Projekte/FotoImport/build/src/fotoimport.c -o CMakeFiles/fotoimport.dir/src/fotoimport.c.s
 
 CMakeFiles/fotoimport.dir/src/fotoimport.c.o.requires:
 .PHONY : CMakeFiles/fotoimport.dir/src/fotoimport.c.o.requires
@@ -94,17 +94,17 @@ CMakeFiles/fotoimport.dir/src/fotoimport.c.o.provides.build: CMakeFiles/fotoimpo
 
 CMakeFiles/fotoimport.dir/src/fotoimport_window.c.o: CMakeFiles/fotoimport.dir/flags.make
 CMakeFiles/fotoimport.dir/src/fotoimport_window.c.o: src/fotoimport_window.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hannenz/FotoImport/build/CMakeFiles $(CMAKE_PROGRESS_3)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hannenz/Share/Projekte/FotoImport/build/CMakeFiles $(CMAKE_PROGRESS_3)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object CMakeFiles/fotoimport.dir/src/fotoimport_window.c.o"
-	/usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/fotoimport.dir/src/fotoimport_window.c.o   -c /home/hannenz/FotoImport/build/src/fotoimport_window.c
+	/usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/fotoimport.dir/src/fotoimport_window.c.o   -c /home/hannenz/Share/Projekte/FotoImport/build/src/fotoimport_window.c
 
 CMakeFiles/fotoimport.dir/src/fotoimport_window.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/fotoimport.dir/src/fotoimport_window.c.i"
-	/usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -E /home/hannenz/FotoImport/build/src/fotoimport_window.c > CMakeFiles/fotoimport.dir/src/fotoimport_window.c.i
+	/usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -E /home/hannenz/Share/Projekte/FotoImport/build/src/fotoimport_window.c > CMakeFiles/fotoimport.dir/src/fotoimport_window.c.i
 
 CMakeFiles/fotoimport.dir/src/fotoimport_window.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/fotoimport.dir/src/fotoimport_window.c.s"
-	/usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -S /home/hannenz/FotoImport/build/src/fotoimport_window.c -o CMakeFiles/fotoimport.dir/src/fotoimport_window.c.s
+	/usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -S /home/hannenz/Share/Projekte/FotoImport/build/src/fotoimport_window.c -o CMakeFiles/fotoimport.dir/src/fotoimport_window.c.s
 
 CMakeFiles/fotoimport.dir/src/fotoimport_window.c.o.requires:
 .PHONY : CMakeFiles/fotoimport.dir/src/fotoimport_window.c.o.requires
@@ -124,10 +124,10 @@ src/fotoimport_window.c: src/main.c
 fotoimport_valac.stamp: ../src/main.vala
 fotoimport_valac.stamp: ../src/fotoimport.vala
 fotoimport_valac.stamp: ../src/fotoimport_window.vala
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hannenz/FotoImport/build/CMakeFiles $(CMAKE_PROGRESS_4)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hannenz/Share/Projekte/FotoImport/build/CMakeFiles $(CMAKE_PROGRESS_4)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating src/main.c;src/fotoimport.c;src/fotoimport_window.c"
-	/usr/bin/valac -C -b /home/hannenz/FotoImport -d /home/hannenz/FotoImport/build --pkg=gtk+-3.0 --pkg=granite --pkg=gexiv2 --pkg=gee-1.0 --pkg=posix -X -DGETTEXT_PACKAGE="fotoimport" /home/hannenz/FotoImport/src/main.vala /home/hannenz/FotoImport/src/fotoimport.vala /home/hannenz/FotoImport/src/fotoimport_window.vala
-	touch /home/hannenz/FotoImport/build/fotoimport_valac.stamp
+	/usr/bin/valac -C -b /home/hannenz/Share/Projekte/FotoImport -d /home/hannenz/Share/Projekte/FotoImport/build --pkg=gtk+-3.0 --pkg=granite --pkg=gexiv2 --pkg=gee-1.0 --pkg=posix -X -DGETTEXT_PACKAGE="fotoimport" /home/hannenz/Share/Projekte/FotoImport/src/main.vala /home/hannenz/Share/Projekte/FotoImport/src/fotoimport.vala /home/hannenz/Share/Projekte/FotoImport/src/fotoimport_window.vala
+	touch /home/hannenz/Share/Projekte/FotoImport/build/fotoimport_valac.stamp
 
 # Object files for target fotoimport
 fotoimport_OBJECTS = \
@@ -163,6 +163,6 @@ CMakeFiles/fotoimport.dir/depend: src/main.c
 CMakeFiles/fotoimport.dir/depend: src/fotoimport.c
 CMakeFiles/fotoimport.dir/depend: src/fotoimport_window.c
 CMakeFiles/fotoimport.dir/depend: fotoimport_valac.stamp
-	cd /home/hannenz/FotoImport/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/hannenz/FotoImport /home/hannenz/FotoImport /home/hannenz/FotoImport/build /home/hannenz/FotoImport/build /home/hannenz/FotoImport/build/CMakeFiles/fotoimport.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/hannenz/Share/Projekte/FotoImport/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/hannenz/Share/Projekte/FotoImport /home/hannenz/Share/Projekte/FotoImport /home/hannenz/Share/Projekte/FotoImport/build /home/hannenz/Share/Projekte/FotoImport/build /home/hannenz/Share/Projekte/FotoImport/build/CMakeFiles/fotoimport.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/fotoimport.dir/depend
 

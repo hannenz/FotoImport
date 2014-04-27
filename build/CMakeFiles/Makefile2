@@ -44,10 +44,10 @@ CMAKE_COMMAND = /usr/bin/cmake
 RM = /usr/bin/cmake -E remove -f
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/hannenz/FotoImport
+CMAKE_SOURCE_DIR = /home/hannenz/Share/Projekte/FotoImport
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/hannenz/FotoImport/build
+CMAKE_BINARY_DIR = /home/hannenz/Share/Projekte/FotoImport/build
 
 #=============================================================================
 # Target rules for target CMakeFiles/fotoimport.dir
@@ -56,7 +56,7 @@ CMAKE_BINARY_DIR = /home/hannenz/FotoImport/build
 CMakeFiles/fotoimport.dir/all:
 	$(MAKE) -f CMakeFiles/fotoimport.dir/build.make CMakeFiles/fotoimport.dir/depend
 	$(MAKE) -f CMakeFiles/fotoimport.dir/build.make CMakeFiles/fotoimport.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/hannenz/FotoImport/build/CMakeFiles  1 2 3 4
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hannenz/Share/Projekte/FotoImport/build/CMakeFiles  1 2 3 4
 	@echo "Built target fotoimport"
 .PHONY : CMakeFiles/fotoimport.dir/all
 
@@ -66,9 +66,9 @@ all: CMakeFiles/fotoimport.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/fotoimport.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hannenz/FotoImport/build/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hannenz/Share/Projekte/FotoImport/build/CMakeFiles 4
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/fotoimport.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hannenz/FotoImport/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hannenz/Share/Projekte/FotoImport/build/CMakeFiles 0
 .PHONY : CMakeFiles/fotoimport.dir/rule
 
 # Convenience name for target.
